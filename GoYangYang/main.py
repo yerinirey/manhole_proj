@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, jsonify
+from flask import Flask, render_template
 import serial
 
 app = Flask(__name__)
@@ -6,18 +6,6 @@ PORT = "COM8"
 BaudRate = 9600
 ARD = serial.Serial(PORT, BaudRate)
 db = []
-# def Decode(response):
-#     response = response[:len(response) - 2].decode() # 문자열 끝에 붙는 \r\n 슬라이싱
-#     response = str(response).split(',')
-#     # ['LIGHT ON/off", 'a.acceleration.x', 'a.acceleration.y', 'a.acceleration.z']
-#     state = response[0]
-#     accel=  response[1:]
-#     if state == "LIGHT ON":
-#         return f"기울임이 감지되었습니다: {accel}"
-#     elif state == "off":
-#         return ". . ."
-#     else:
-#         return "Wrong access from _Decode_"
 
 def Decode(response):
     response = response[:len(response) - 2].decode() # 문자열 끝에 붙는 \r\n 슬라이싱
