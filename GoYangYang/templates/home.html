@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고양양 화이팅</title>
 </head>
-<body>
-    <main class="container">
+<body style="background-color:darkgrey;">
+    <main>
         <h1>고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양</h1>
         <h2>하단에 상태를 표시합니다.</h2>
-
+        <div id="log" style="overflow:auto;width:700px;height:200px;border:1px solid;">
+            {% for c in DataHtml %}
+            {{c}}</br>
+            {% endfor %}
+        </div>
         <h2>지도를 표시합니다.</h2>
         <form action="/location">
             <button>Go To Map</button>
         </form>
     </main>
+    <script>
+        // scroll 하단 고정
+        var scrollableDiv = document.getElementById('log');
+        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    </script>
 </body>
 </html>
