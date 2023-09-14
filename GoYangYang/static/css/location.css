@@ -1,3 +1,7 @@
+body {
+  background-color: wheat;
+}
+
 #map {
     position: relative;
     height: 660px;

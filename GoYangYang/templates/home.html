@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고양양 화이팅</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('sensor_data', function(data) {
+            // 실시간으로 업데이트된 센서 데이터를 처리
+            document.getElementById('sensor_value').innerText = data;
+        });
+
+        function refreshSensorData() {
+            socket.emit('get_sensor_data');
+        }
+
+        // 페이지 로드 시 초기 센서 데이터 가져오기
+        refreshSensorData();
+
+        // 1초마다 센서 데이터 갱신
+        setInterval(refreshSensorData, 1000);
+    </script>
+
 </head>
 <body style="background-color:darkgrey;">
     <main>
         <h1>고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양고양양</h1>
         <h2>하단에 상태를 표시합니다.</h2>
-        <div id="log" style="overflow:auto;width:700px;height:200px;border:1px solid;">
+        <div id="sensor_value" style="overflow:auto;width:700px;height:200px;border:1px solid;">
             {% for c in DataHtml %}
             {{c}}</br>
             {% endfor %}

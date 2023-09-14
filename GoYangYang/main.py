@@ -8,7 +8,7 @@ PORT = "COM8"
 BaudRate = 9600
 db = []
 
-@app.route('/')
+@app.route('/home')
 def home():
     # ARD = serial.Serial(PORT, BaudRate)
     # LINE = ARD.readline()
@@ -20,8 +20,9 @@ def home():
     # else:
     #     message = "Wrong access from _Decode_"
     # # code = Ardread(ARD)
-    db.append(message)
-    return render_template("home.html", DataHtml=db)
+    # db.append(message)
+    # return render_template("home.html", DataHtml=db)
+    return render_template("home.html")
 
 @socketio.on('connect')
 def handle_connect():
@@ -37,18 +38,17 @@ def get_sensor_data():
     LINE = ARD.readline()
     state, accelX, accelY, accelZ = LINE[:len(LINE) - 2].decode("utf-8").split(',')
     if state == "LIGHT ON":
-        message = f"기울임이 감지되었습니다: {accelX, accelY, accelZ}"
+        sensor_data = f"기울임이 감지되었습니다: {accelX, accelY, accelZ}"
     elif state == "off":
-        message = ". . ."
+        sensor_data = ". . ."
     else:
-        message = "Wrong access from _Decode_"
-    sensor_data = message
+        sensor_data = "Wrong access from _Decode_"
     socketio.emit('sensor_data', sensor_data)
     
 
-@app.route('/location')
+@app.route('/')
 def location():
     return render_template("location.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app)
