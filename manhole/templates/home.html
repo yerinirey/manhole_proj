@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양양 화이팅</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="headbox">
+        <img id="headbox-img" src="static/img/manhole.png">
+        <h1>고양양 MANHOLE</h1>
+    </div>
+    <div class="statebox">
+        <h2 class="headder">상태 표시창</h2>
+        <div id="statebox-value">
+            Acceleration will be displayed here
+        </div>
+    </div>
+    <div class="statebox mapbox">
+        <h2 class="headder">유실된 맨홀의 위치를 파악합니다.</h2>
+        <div class="mapbox-value">
+            <div id="dot" class="blinking"></div>
+            <img id="map" src="static/img/huemonlab.png">
+        </div>
+    </div>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('arduino_data', function(data) {
+            var valueDiv = document.getElementById('statebox-value');
+            valueDiv.innerHTML += "<br>" + data;
+        });
+
+        // scroll 하단 고정
+        const scrollableDiv = document.getElementById('statebox-value');
+        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    </script>
+</body>
+</html>
