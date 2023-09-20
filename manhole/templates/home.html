@@ -17,6 +17,7 @@
         <div id="statebox-value">
             Acceleration will be displayed here
         </div>
+        <button id="btn">Turn Off</button>
     </div>
     <div class="statebox mapbox">
         <h2 class="headder">유실된 맨홀의 위치를 파악합니다.</h2>
@@ -32,10 +33,22 @@
             var valueDiv = document.getElementById('statebox-value');
             valueDiv.innerHTML += "<br>" + data;
         });
+        //document.addEventListener('DOMContentLoaded', function() {
+        //    const scrollableDiv = document.getElementById('statebox-value');
+        //    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+        //});
 
         // scroll 하단 고정
-        const scrollableDiv = document.getElementById('statebox-value');
-        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+        //const scrollableDiv = document.getElementById('statebox-value');
+        //scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+
+
+        document.getElementById('btn').addEventListener('click', () => {
+            const dataToSend = '1'; // 보낼 데이터를 여기에 입력하세요.
+            socket.emit('send_to_arduino', dataToSend); // 서버로 데이터를 보냅니다.
+        });
     </script>
+
+
 </body>
 </html>
