@@ -21,7 +21,7 @@
     </div>
     <div class="statebox mapbox">
         <h2 class="headder">유실된 맨홀의 위치를 파악합니다.</h2>
-        <div class="mapbox-value">
+        <div class="mapbox-value hidden">
             <div id="dot" class="blinking"></div>
             <img id="map" src="static/img/huemonlab.png">
         </div>
@@ -33,19 +33,18 @@
             var valueDiv = document.getElementById('statebox-value');
             valueDiv.innerHTML += "<br>" + data;
         });
-        //document.addEventListener('DOMContentLoaded', function() {
-        //    const scrollableDiv = document.getElementById('statebox-value');
-        //    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-        //});
-
-        // scroll 하단 고정
-        //const scrollableDiv = document.getElementById('statebox-value');
-        //scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-
-
-        document.getElementById('btn').addEventListener('click', () => {
+        
+        const offBtn = document.getElementById("btn");
+        offBtn.addEventListener('click', () => {
             const dataToSend = '1'; // 보낼 데이터를 여기에 입력하세요.
             socket.emit('send_to_arduino', dataToSend); // 서버로 데이터를 보냅니다.
+
+        // map표시
+        const mapDiv = document.getElementById("mapbox-value");
+        offBtn.addEventListener("click", function() {
+            mapDiv.classList.add("hidden");
+        });
+        
         });
     </script>
 
